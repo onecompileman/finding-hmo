@@ -18,15 +18,15 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
+      // {
+      //   path: '',
+      //   component: HomeComponent,
+      //   data: {
+      //     animation: 'HomePage',
+      //   },
+      // },
       {
         path: '',
-        component: HomeComponent,
-        data: {
-          animation: 'HomePage',
-        },
-      },
-      {
-        path: 'landing',
         component: LandingComponent,
         data: {
           animation: 'LandingPage',

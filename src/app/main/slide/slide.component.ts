@@ -14,9 +14,9 @@ export class SlideComponent implements OnInit {
   ngOnInit() {
     this.getNextPage();
 
-    // setTimeout(() => {
-    //   this.router.navigate(['/' + this.nextPage]);
-    // }, 4000);
+    setTimeout(() => {
+      this.router.navigate(['/' + this.nextPage]);
+    }, 5000);
   }
 
   private getNextPage() {

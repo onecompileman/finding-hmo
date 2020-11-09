@@ -1,50 +1,96 @@
-<div class="wm-game" [class.wm-game--active]="isStarted">
+<div class="wm-game">
   <div class="wm-game__container">
-    <div class="wm-game__header">
-      <div
-        class="wm-game__score-ui no-select"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <img src="assets/images/score.png" alt="Score" />
-        <div class="wm-game__score-info no-select">
-          <b id="score">0</b>
-          <span class="no-select">SCORE</span>
+    <div class="wm-game__game">
+      <div id="gameBg">
+        <div
+          *ngFor="let icon of iconsTiles"
+          class="wm-game__point"
+          [ngStyle]="{ marginLeft: icon.left, marginTop: icon.top }"
+          (click)="foundIcon(icon)"
+        >
+          <img
+            *ngIf="icon.opened"
+            class="animate__animated animate__zoomIn"
+            src="assets/images/found-frame.png"
+            alt="Found"
+          />
+        </div>
+        <img id="bgImg" src="assets/images/game-bg.png" alt="Game bg" />
+      </div>
+    </div>
+    <div class="wm-game__hint-container">
+      <div class="wm-game__pairs">
+        <div class="wm-game__pair-item">
+          <span>
+            {{ score }}
+          </span>
+          <span class="wm-game__pair-caption"> SCORE </span>
         </div>
       </div>
-
-      <div
-        class="wm-game__score-ui no-select"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <img src="assets/images/score.png" alt="Score" />
-        <div class="wm-game__score-info no-select">
-          <b id="time" class="no-select">30.00</b>
-          <span class="no-select">TIME</span>
+      <div class="d-flex flex-row align-items-center justify-content-center">
+        <span class="wm-game__pair-caption" style="color: white">
+          LOOK FOR THIS ICON:
+        </span>
+        <img
+          src="assets/images/hmo.png"
+          alt="Live Icon"
+          style="height: 10vh; margin: 8px"
+        />
+      </div>
+      <div class="wm-game__hint"></div>
+      <div class="wm-game__pairs">
+        <div class="wm-game__pair-item">
+          <span>
+            {{ time | number: '.2-2' }}
+          </span>
+          <span class="wm-game__pair-caption"> TIME </span>
         </div>
       </div>
     </div>
-    <div id="gameContainer"></div>
   </div>
-  <div
-    *ngIf="!isStarted && time > 0 && !isGameOver; &quot;no-select&quot;"
-    class="wm-game__game-text animate__animated animate__flipInY"
-    (click)="startGame()"
+
+  <div class="wm-game__game-text animate__animated">
+    <span> GAME </span>
+  </div>
+  <div class="wm-game__game-text animate__animated" *ngIf="score >= 15">
+    <span> CONGRATS </span>
+  </div>
+  <div class="wm-game__game-text" *ngIf="time >= 80">
+    <span> TIMES UP </span>
+  </div>
+</div>
+
+<div *ngIf="showPinch" class="cmp-gesture">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="cmp-gesture--hand"
+    width="24"
+    height="28"
+    viewBox="0 0 24 28"
   >
-    <img src="assets/images/rectangle.png" alt="Rectangle" />
-    <span *ngIf="gameLoaded; else loadingText"> TAP THE SCREEN TO START </span>
-    <ng-template #loadingText> LOADING </ng-template>
+    <path
+      fill="#fff"
+      d="M8 16V1s.99-1 2-1c.99 0 2 1 2 1v8s1-1 2-1 2 1 2 1v2s.966-1 2-1c.964 0 2 1 2 1v2s.564-1 2-1c1.234 0 2 2 2 2v12l-2 2H8L0 14s3.097-2.904 8 2z"
+    />
+  </svg>
+
+  <div class="cmp-gesture__arrow">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+    >
+      <path fill="#fff" d="M6 8h6V4H6V0L0 6l6 6z" />
+    </svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+    >
+      <path fill="#fff" d="M6 4H0v4h6v4l6-6-6-6z" />
+    </svg>
   </div>
-  <div class="wm-game__game-text no-select" *ngIf="time <= 0">
-    <img src="assets/images/rectangle.png" alt="Rectangle" />
-    <span> TIME'S UP! </span>
-  </div>
-  <div
-    *ngIf="isGameOver"
-    class="wm-game__game-text no-select animate__animated animate__flipInY"
-  >
-    <img src="assets/images/rectangle.png" alt="Rectangle" />
-    <span> Game Over! </span>
-  </div>
+  <p class="text-white g-700">Pinch to zoom</p>
 </div>

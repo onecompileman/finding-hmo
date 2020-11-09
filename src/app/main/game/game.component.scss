@@ -2,37 +2,97 @@
 @import '~src/assets/scss/config';
 
 .#{$style-prefix}-game {
-  background-image: url(/assets/images/parallax-bg.jpg);
-  background-size: auto 100%;
-  background-position: 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-image: url(/assets/images/bg-5.png);
+  // background-color: #1d3d70;
+  background-size: cover;
+  background-position: center;
   height: 100%;
   width: 100%;
 
-  &--active {
-    animation: moveBackground 60s linear;
+  &__point {
+    height: 3vh;
+    width: 3vh;
+    position: absolute;
+    // background-color: red;
+    z-index: 2;
+
+    img {
+      height: 11vh;
+      margin-left: -3vh;
+      margin-top: -4vh;
+    }
+  }
+
+  &__game {
+    // background-image: url(/assets/images/game-bg.png);
+    // background-size: contain;
+    // background-position: center;
+    // background-repeat: no-repeat;
+    width: fit-content;
+    height: 85%;
+
+    #gameBg {
+      height: 100%;
+      #bgImg {
+        height: 100%;
+        user-select: none;
+        pointer-events: none;
+      }
+    }
+    // width: 100%;
   }
 
   &__container {
+    border: 1px solid $red-pastel;
+
     height: 100%;
-    width: 100%;
+    width: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  &__header {
+  &__hint-container {
     display: flex;
+    width: 100%;
+    // width: fit-content;
+    height: 15%;
     justify-content: space-between;
     align-items: center;
-    position: absolute;
-    width: calc(100% - 6vh);
-    margin: 3vh;
-    margin-top: 5vh;
+    // background-image: url(/assets/images/rectangle.png);
+    background-color: #1d3d70;
+    background-size: cover;
+    background-position: center;
   }
 
-  &__score-ui {
-    img {
-      height: 18.5vh;
+  &__pairs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5vh;
+    margin-right: 5vh;
+  }
+
+  &__pair-caption {
+    font-size: 2vh !important;
+    font-weight: 600;
+    font-family: 'Varela';
+    color: #f7d476;
+  }
+
+  &__hint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      font-size: 3vh;
+      font-weight: 600;
+      font-family: 'Varela';
     }
   }
 
@@ -40,103 +100,223 @@
     height: 100%;
     width: 100%;
     display: flex;
+    background-color: rgba(255, 255, 255, 0.6);
     justify-content: center;
     align-items: center;
     position: absolute;
     top: 0;
-    color: white;
     z-index: 10;
+    animation: matchEffect 2.5s ease-in forwards;
+
+    span {
+      font-size: 18vh;
+      color: #15183f;
+      font-family: 'Dolce Vita';
+      font-weight: 800;
+    }
+  }
+
+  &__hint-icon-container {
+    display: flex;
+    align-items: center;
 
     img {
-      height: 20vh;
-    }
+      &:first-child {
+        height: 14vh;
+        z-index: 1;
+      }
 
-    span {
-      font-family: 'Dolce Vita', Arial, Helvetica, sans-serif;
-      position: absolute;
-      font-size: 8vh;
-      font-weight: bold;
+      &:nth-child(2) {
+        height: 9vh;
+        position: absolute;
+        z-index: 2;
+      }
+
+      &:nth-child(3) {
+        height: 15vh;
+        position: absolute;
+        z-index: 0;
+      }
     }
   }
 
-  &__score-info {
+  &__tile-bg {
+    height: 29vh;
+    z-index: 0;
+
+    @include for-phone {
+      height: 25vh;
+    }
+
+    @include for-tablet {
+      height: 25vh;
+    }
+
+    @include for-small-desktop {
+      height: 29vh;
+    }
+  }
+
+  &__game-row-1 {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    font-family: 'Dolce Vita', Arial, Helvetica, sans-serif;
-    width: 18vh;
+    margin-top: -6vh;
 
-    b {
-      font-size: 36px;
-      color: $secondary;
-      font-weight: normal;
+    &:first-child {
+      margin-top: 2.5vh;
 
       @include for-phone {
-        font-size: 16px;
+        margin-top: 8.5vh;
       }
 
       @include for-tablet {
-        font-size: 16px;
+        margin-top: 8.5vh;
       }
 
       @include for-small-desktop {
-        font-size: 18px;
+        margin-top: 2.5vh;
+      }
+    }
+  }
+
+  &__game-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //  animation: fade-in 400ms ease-in forwards;
+    //  transform: translateY(-80%);
+    //  opacity: 0;
+    margin-left: 1.2vh;
+    margin-right: 1.2vh;
+    transition: 0.2s ease-in;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    img {
+      &:first-child {
+        margin-left: 0.3vh;
+        margin-bottom: 0.2vh;
+        height: 27vh;
+        position: absolute;
+        z-index: 1;
+
+        @include for-phone {
+          height: 23vh;
+        }
+
+        @include for-tablet {
+          height: 23vh;
+        }
+
+        @include for-small-desktop {
+          height: 27vh;
+        }
       }
 
-      @include for-desktop {
-        font-size: 36px;
-      }
+      &:nth-child(2) {
+        // width: 13vh;
+        height: 17vh;
+        position: absolute;
+        z-index: 2;
 
-      @include for-big-desktop {
-        font-size: 42px;
+        @include for-phone {
+          height: 13vh;
+        }
+
+        @include for-tablet {
+          height: 13vh;
+        }
+
+        @include for-small-desktop {
+          height: 17vh;
+        }
+      }
+    }
+  }
+
+  &__effect {
+    height: 10vh;
+    position: absolute;
+    z-index: 9;
+    margin-top: -11vh;
+    animation: matchEffect 2.5s ease-in forwards;
+  }
+
+  &__landscape-tile {
+    width: 17vh !important;
+    height: auto !important;
+
+    @include for-phone {
+      height: 13vh;
+    }
+
+    @include for-tablet {
+      height: 13vh;
+    }
+
+    @include for-small-desktop {
+      height: 17vh;
+    }
+  }
+
+  &__hint-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fade-in 400ms ease-in forwards;
+    transform: translateY(-80%);
+    opacity: 0;
+    margin-left: 1vh;
+    margin-right: 1vh;
+
+    @for $x from 1 through 5 {
+      &:nth-child(#{$x}) {
+        animation-delay: (200ms * ($x - 1)) + 500ms;
+      }
+    }
+  }
+
+  &__pair-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 15vh;
+    width: 15vh;
+    background-image: url(/assets/images/score.png);
+    background-size: cover;
+    background-position: center;
+
+    &:last-child {
+      img {
+        height: 15vh;
       }
     }
 
     span {
-      color: $secondary;
-      font-weight: normal;
-
-      @include for-phone {
-        font-size: 12px;
-      }
-
-      @include for-tablet {
-        font-size: 13px;
-      }
-
-      @include for-small-desktop {
-        font-size: 14px;
-      }
-
-      @include for-desktop {
-        font-size: 15px;
-      }
-
-      @include for-big-desktop {
-        font-size: 16px;
-      }
+      font-family: 'Dolce Vita';
+      font-size: 4vh;
+      font-weight: 700;
+      // padding-left: 1.5vh;
+      // padding-bottom: 1vh;
+      color: #f7d476;
     }
-  }
-
-  #gameContainer {
-    width: 100%;
-    height: 100%;
-  }
-
-  #defaultCanvas0 {
-    touch-action: manipulation;
   }
 }
 
-@keyframes moveBackground {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 200% 0;
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -169,5 +349,107 @@
     opacity: 0;
     transform: scale(0);
     animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+}
+
+@keyframes arrowRight {
+  0%,
+  10% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(100%, 0);
+  }
+  100%,
+  90% {
+    transform: translate(100%, 0);
+    opacity: 0;
+  }
+}
+@keyframes arrowLeft {
+  0%,
+  10% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-100%, 0);
+  }
+  100%,
+  90% {
+    transform: translate(-100%, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes rotateHand {
+  0%,
+  10% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100%,
+  80% {
+    transform: translate(-50%, -50%) rotate(10deg);
+  }
+}
+
+.cmp-gesture {
+  position: absolute;
+  top: calc(5% + 20px);
+  right: calc(5% + 120px);
+  width: 40px;
+  display: block;
+  z-index: 99;
+
+  p {
+    position: absolute;
+    width: auto;
+    white-space: nowrap;
+    margin: 0;
+    top: 100%;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    font-family: 'Varela';
+    left: 50%;
+    transform: translate(-50%, 20%);
+  }
+  @media (orientation: landscape) {
+    width: 40px;
+  }
+  &--hand {
+    width: 100%;
+    height: auto;
+  }
+  &__arrow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translate(-50%, -20%) rotate(-45deg);
+
+    svg {
+      width: 50%;
+      height: auto;
+      float: left;
+
+      &:first-child {
+        animation: 2s arrowLeft infinite;
+      }
+      &:last-child {
+        animation: 2s arrowRight infinite;
+      }
+    }
   }
 }

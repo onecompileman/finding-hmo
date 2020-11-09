@@ -1,22 +1,27 @@
 <div class="wm-landing">
   <div class="wm-landing__container" fxLayoutAlign="end">
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
-      <img
-        src="assets/images/triple-text.png"
-        alt="Title"
-        class="wm-landing__title"
-      />
       <img src="assets/images/logo.png" alt="Title" class="wm-landing__logo" />
     </div>
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
-      <a [routerLink]="['/enter-name']">
+      <img
+        src="assets/images/title-text.png"
+        alt="Title"
+        class="wm-landing__title"
+      />
+      <a
+        [routerLink]="['/enter-name']"
+        class="d-flex flex-row justify-content-center"
+      >
         <img
           class="wm-action"
           src="assets/images/click-start-btn.png"
           alt="Click Start"
         />
       </a>
-      <a [routerLink]="['/leaderboard']"
+      <a
+        [routerLink]="['/leaderboard']"
+        class="d-flex flex-row justify-content-center"
         ><img
           class="wm-action"
           src="assets/images/leaderboard-btn.png"

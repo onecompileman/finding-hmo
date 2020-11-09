@@ -16,9 +16,11 @@ export class LeaderboardService {
   constructor(private angularFirestore: AngularFirestore) {
     this.getAllLeader().subscribe((leaderboards) => {
       this.leaderboards$.next(leaderboards);
+      console.log(leaderboards);
     });
 
     this.getAll().subscribe((allLeaderboards) => {
+      console.log(allLeaderboards);
       this.allLeaderboards$.next(allLeaderboards);
     });
   }
@@ -40,7 +42,7 @@ export class LeaderboardService {
   getAllLeader(): Observable<Leaderboard[]> {
     return this.angularFirestore
       .collection<Leaderboard>(this.collectionName, (ref) =>
-        ref.orderBy('score', 'desc').limit(5)
+        ref.where('score', '>=', 10)
       )
       .valueChanges({ idField: 'id' });
   }
